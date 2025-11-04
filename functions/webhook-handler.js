@@ -96,7 +96,7 @@ export default async (request) => {
           deviceName = deviceData.data.rows[0].DeviceName || 'Unknown Device';
           imei = deviceData.data.rows[0].IMEI || 'N/A';
           macAddress = deviceData.data.rows[0].MacAddress || 'N/A';
-          serialNumber = deviceData.data.rows[0].SerialNumber || 'N/A';
+          serialNumber
           console.log('Successfully fetched device details');
         } else {
           console.warn('Device details not found in API response');
@@ -122,7 +122,8 @@ export default async (request) => {
       deviceDetails: {
         name: deviceName,
         imei: imei,
-        macAddress: macAddress
+        macAddress: macAddress,
+        serialNumber: serialNumber
       },
       timestamp: new Date().toISOString()
     };
