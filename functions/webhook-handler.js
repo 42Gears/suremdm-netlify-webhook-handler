@@ -19,7 +19,7 @@ export default async (request) => {
   // Parse the JSON body
   let body;
   try {
-    // First, get the raw text to see what we're receivinggti 
+    // First, get the raw text to see what we're receiving
     const rawBody = await request.text();
     console.log('Raw request body:', rawBody);
     console.log('Raw body length:', rawBody.length);
@@ -96,7 +96,7 @@ export default async (request) => {
           deviceName = deviceData.data.rows[0].DeviceName || 'Unknown Device';
           imei = deviceData.data.rows[0].IMEI || 'N/A';
           macAddress = deviceData.data.rows[0].MacAddress || 'N/A';
-          serialNumber
+          serialNumber= deviceData.data.rows[0].SerialNumber || 'N/A';
           console.log('Successfully fetched device details');
         } else {
           console.warn('Device details not found in API response');
@@ -148,6 +148,7 @@ export default async (request) => {
       IMEI: ${imei}
       MAC Address: ${macAddress}
       Timestamp: ${new Date().toISOString()}
+      Serial Number: ${serialNumber}
     `;
 
     await transporter.sendMail({
