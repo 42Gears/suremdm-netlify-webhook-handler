@@ -62,6 +62,7 @@ export default async (request) => {
   let macAddress = 'N/A';
   let deviceData = null;
   let apiUrl = null;
+  let serialNumber = null;
 
   // Check if this is a delete event - don't try to fetch device details for deleted devices
   const isDeleteEvent = body.EventType === 'Device Deletion';
@@ -95,6 +96,7 @@ export default async (request) => {
           deviceName = deviceData.data.rows[0].DeviceName || 'Unknown Device';
           imei = deviceData.data.rows[0].IMEI || 'N/A';
           macAddress = deviceData.data.rows[0].MacAddress || 'N/A';
+          serialNumber= deviceData.data.rows[0].SerialNumber || 'N/A';
           console.log('Successfully fetched device details');
         } else {
           console.warn('Device details not found in API response');
@@ -120,7 +122,8 @@ export default async (request) => {
       deviceDetails: {
         name: deviceName,
         imei: imei,
-        macAddress: macAddress
+        macAddress: macAddress,
+        serialNumber: serialNumber
       },
       timestamp: new Date().toISOString()
     };
@@ -145,6 +148,7 @@ export default async (request) => {
       IMEI: ${imei}
       MAC Address: ${macAddress}
       Timestamp: ${new Date().toISOString()}
+      Serial Number: ${serialNumber}
     `;
 
     await transporter.sendMail({
